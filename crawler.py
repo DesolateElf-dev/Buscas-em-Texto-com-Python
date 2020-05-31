@@ -1,6 +1,21 @@
 import urllib3
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
+import re
+import nltk
+
+def separaPalavras(texto):
+    stop = nltk.corpus.stopwords.words('portuguese')
+    stemmer = nltk.stem.RSLPStemmer()
+    splitter = re.compile('\\W+')
+    lista_palavras = []
+    lista = [p for p in splitter.split(texto) if p != '']
+    for p in lista:
+        if p.lower() not in stop:
+            if len(p) > 1:
+                lista_palavras.append(stemmer.stem(p).lower())
+    return lista_palavras
+
 
 def getTexto(sopa):
     for tags in sopa(['script','style']):
