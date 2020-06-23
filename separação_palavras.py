@@ -12,5 +12,5 @@ for p in lista:
     if p.lower() not in stop2:
         if len(p) > 1:
             lista_palavras.append(stemmer.stem(p).lower())
-stemmer.stem('nova')
+stemmer.stem('programador')
 stemmer.stem('novamente')

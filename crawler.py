@@ -124,7 +124,7 @@ def crawl(paginas, profundidade):
             try:
                 dados_pagina = http.request('GET', pagina)
             except:
-                print('Erro ao abrir a página',+pagina)
+                #print('Erro ao abrir a página',+pagina)
                 continue
             sopa = BeautifulSoup(dados_pagina.data, "lxml")
             indexador(pagina, sopa)
