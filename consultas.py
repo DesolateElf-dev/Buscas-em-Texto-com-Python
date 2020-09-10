@@ -1,6 +1,16 @@
 import pymysql
 import nltk
 
+def frequenciaScore(linhas):
+    contagem = dict([linha[0],0] for linha in linhas)
+    for linha in linhas:
+        #print(linha)
+        contagem[linha[0]] += 1
+    return contagem
+
+#frequenciaScore(linhas)
+pesquisa('python é divertido')
+
 def getIdPalavra(palavra):
     retorno=-1
     stemmer = nltk.stem.RSLPStemmer()
@@ -13,14 +23,15 @@ def getIdPalavra(palavra):
     conexao.close()
     return retorno
 
-def pesquisa(consulta):
+def pesquisa(consulta):    
     linhas, palavraid = buscaMaisPalavras(consulta)
-    scores = dict([linha[0],0] for linha in linhas)
+    #scores = dict([linha[0],0] for linha in linhas)
+    scores = frequenciaScore(linhas)
     #for linha in linhas:
     #    print(linha[0])
     #for url, score in scores.items():
     #    print(str(url)+' - '+str(score))
-    scoresordenado = sorted([(score, url)for(url,score) in scores.items()])
+    scoresordenado = sorted([(score, url)for(url,score) in scores.items()], reverse = 1)
     for (score,idurl) in scoresordenado[0:10]:
         print('%f\t%s' % (score,getUrl(idurl)))      
 
